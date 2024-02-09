@@ -55,11 +55,7 @@ static CGFloat minVolume                    = 0.00001f;
 
 - (void)dealloc {
     [self stopHandler];
-    
-    MPVolumeView *volumeView = self.volumeView;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [volumeView removeFromSuperview];
-    });
+    [self.volumeView removeFromSuperview];
 }
 
 - (void)startHandler:(BOOL)disableSystemVolumeHandler {
@@ -102,9 +98,9 @@ static CGFloat minVolume                    = 0.00001f;
     self.session = [AVAudioSession sharedInstance];
     // this must be done before calling setCategory or else the initial volume is reset
     [self setInitialVolume];
-    [self.session setCategory:_sessionCategory
+    /* [self.session setCategory:_sessionCategory
                   withOptions:_sessionOptions
-                        error:&error];
+                        error:&error]; */
     if (error) {
         NSLog(@"%@", error);
         return;
